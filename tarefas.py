@@ -14,7 +14,7 @@ def adicionar_tarefa():
 
     tarefas = input("Adicione uma tarefa na lista:\n")
 
-    tarefa_dict = {"nome": tarefas.capitalize().strip(), "concluida": False}
+    tarefa_dict = {"nome": tarefas.strip().capitalize(), "concluida": False}
 
     lista_tarefas.append(tarefa_dict)
 
@@ -98,8 +98,14 @@ def carregar_dados():
     global lista_tarefas
     if os.path.exists("Lista-de-tarefas.json"):
 
-        with open("Lista-de-tarefas.json", "r") as arquivo:
-            lista_tarefas = json.load(arquivo)
+        try:
+
+            with open("Lista-de-tarefas.json", "r") as arquivo:
+                lista_tarefas = json.load(arquivo)
+
+        except FileNotFoundError:
+
+            print("Arquivo não encontrado!")
 
     else:
 
