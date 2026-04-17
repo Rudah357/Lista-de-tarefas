@@ -1,5 +1,5 @@
 
-import os, time, json
+import os, time
 
 lista_tarefas = []
 
@@ -14,7 +14,7 @@ def adicionar_tarefa():
 
     tarefas = input("Adicione uma tarefa na lista:\n")
 
-    tarefa_dict = {"nome": tarefas.capitalize().strip(), "concluida": False}
+    tarefa_dict = {"nome": tarefas, "concluida": False}
 
     lista_tarefas.append(tarefa_dict)
 
@@ -35,9 +35,9 @@ def listar_tarefas():
 def concluir_tarefa():
 
 
-    entrada = input("Digite o ID ou o Nome da tarefa para concluir (ou 0 para sair): \n")
+    entrada = input("Digite o ID ou o Nome da tarefa para concluir: (ou 0 para sair)\n")
 
-    if entrada == "0":
+    if entrada == 0:
         return
     
     achou = False
@@ -62,45 +62,25 @@ def concluir_tarefa():
 
 def remover_tarefa():
 
-    entrada = input("Digite o ID ou o Nome da tarefa para removê-la da lista (ou 0 para sair): \n")
+    entrada = input("Digite o ID ou o Nome da tarefa para remove-la da lista: (ou 0 para sair)\n")
 
-    if entrada == "0":
-        return
-
-    removido = False
+    achar_vos = False
 
     if entrada.isdigit():
         indice = int(entrada) - 1
         if 0 <= indice < len(lista_tarefas):
-            tarefa_removida = lista_tarefas.pop(indice)
-            print(f"Tarefa '{tarefa_removida['nome']}' removida!")
-            removido = True
 
-    if not removido:
+            lista_tarefas.remove(entrada)
+            achar_vos = True
+
+    if not achar_vos:
         for tarefa in lista_tarefas:
             if tarefa["nome"].lower() == entrada.lower():
-                lista_tarefas.remove(tarefa)
-                print(f"Tarefa '{tarefa['nome']}' removida!")
-                removido = True
+                tarefa["nome"] = lista_tarefas.remove(entrada)
+                achar_vos = True
                 break
 
-    if not removido:
-        print("Tarefa não encontrada.")
-
-def salvar_dados():
-
-    with open("Lista-de-tarefas.json", "w") as arquivo:
-
-        json.dump(lista_tarefas, arquivo, indent=4)
-
-def carregar_dados():
-
-    global lista_tarefas
-    if os.path.exists("Lista-de-tarefas.json"):
-
-        with open("Lista-de-tarefas.json", "r") as arquivo:
-            lista_tarefas = json.load(arquivo)
-
+    if achar_vos:
+        print("Tarefa removida com sucesso!")
     else:
-
-        lista_tarefas = []
+        print("Tarefa não encontrada.")

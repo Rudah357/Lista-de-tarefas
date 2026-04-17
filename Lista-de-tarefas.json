@@ -1,0 +1,22 @@
+[
+    {
+        "nome": "Limpar a casa",
+        "concluida": false
+    },
+    {
+        "nome": "Estudar",
+        "concluida": true
+    },
+    {
+        "nome": "lavar a lou\u00e7a",
+        "concluida": false
+    },
+    {
+        "nome": "Dar comida para o cachorro",
+        "concluida": true
+    },
+    {
+        "nome": "Fazer trabalho",
+        "concluida": true
+    }
+]
